@@ -1,14 +1,14 @@
-<?
-	include "config/koneksi.php";
-	include "config/fungsi.php";
-	$alamat = "?mod=cuti";
-	$aksi = $_GET[aksi];
-   $q = mysql_query("select a.*,b.nama_jabatan, c.nama_golongan from mst_karyawan a,mst_jabatan b, mst_golongan c where a.kode_jab = b.kode_jab and a.id_golongan = c.id_golongan
-   order by a.nama_lengkap");
+<?php
+    include 'config/koneksi.php';
+    include 'config/fungsi.php';
+    $alamat = '?mod=cuti';
+    $aksi = $_GET[aksi];
+   $q = mysql_query('select a.*,b.nama_jabatan, c.nama_golongan from mst_karyawan a,mst_jabatan b, mst_golongan c where a.kode_jab = b.kode_jab and a.id_golongan = c.id_golongan
+   order by a.nama_lengkap');
 
     // Tanggal Sekarang
-	$tgls = date('Y-m-d');
-	$tanggalsekarang = tgl_indonesia($tgls);
+    $tgls = date('Y-m-d');
+    $tanggalsekarang = tgl_indonesia($tgls);
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -35,25 +35,24 @@
     <td width="13%" class="tabelheader">Jabatan</td>
     <td width="13%" class="tabelheader">Jml Keluarga</td>
   </tr>
-  <?
-   while ($t = mysql_fetch_array($q))
-   {
-	  $tanggal_lahir = tgl_indonesia($t[tanggal_lahir]);
-?>
+  <?php
+   while ($t = mysql_fetch_array($q)) {
+       $tanggal_lahir = tgl_indonesia($t[tanggal_lahir]); ?>
   <tr class="tabelsorot">
-    <td align="center" class="tabelisi"><?  echo $t[nip]; ?></td>
-    <td class="tabelisi"><?  echo $t[nama_lengkap]; ?></td>
-    <td class="tabelisi"><?  echo $t[alamat_ktp]; ?></td>
-    <td class="tabelisi"><?  echo $t[alamat_email]; ?></td>
-    <td align="center" class="tabelisi"><?  echo $t[telp_hp]; ?></td>
-    <td align="center" class="tabelisi"><?  echo $t[tempat_lahir]; ?></td>
-    <td align="center" class="tabelisi"><?  echo $tanggal_lahir; ?></td>
-    <td align="center" class="tabelisi"><?  echo $t[agama]; ?></td>
-    <td align="center" class="tabelisi"><?  echo $t[nama_golongan]; ?></td>
-    <td align="center" class="tabelisi"><?  echo $t[nama_jabatan]; ?></td>
-    <td align="center" class="tabelisi"><?  echo $t[jumlah_keluarga]; ?></td>
+    <td align="center" class="tabelisi"><?php  echo $t[nip]; ?></td>
+    <td class="tabelisi"><?php  echo $t[nama_lengkap]; ?></td>
+    <td class="tabelisi"><?php  echo $t[alamat_ktp]; ?></td>
+    <td class="tabelisi"><?php  echo $t[alamat_email]; ?></td>
+    <td align="center" class="tabelisi"><?php  echo $t[telp_hp]; ?></td>
+    <td align="center" class="tabelisi"><?php  echo $t[tempat_lahir]; ?></td>
+    <td align="center" class="tabelisi"><?php  echo $tanggal_lahir; ?></td>
+    <td align="center" class="tabelisi"><?php  echo $t[agama]; ?></td>
+    <td align="center" class="tabelisi"><?php  echo $t[nama_golongan]; ?></td>
+    <td align="center" class="tabelisi"><?php  echo $t[nama_jabatan]; ?></td>
+    <td align="center" class="tabelisi"><?php  echo $t[jumlah_keluarga]; ?></td>
   </tr>
-  <? } ?>
+  <?php
+   } ?>
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
@@ -90,7 +89,7 @@
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
-    <td colspan="2" align="center">Tanggal, <? echo $tanggalsekarang;  ?>
+    <td colspan="2" align="center">Tanggal, <?php echo $tanggalsekarang; ?>
         <p>&nbsp;</p>
       <p>&nbsp;</p>
       <p>&nbsp;</p>

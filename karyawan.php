@@ -1,8 +1,8 @@
-<?
-	include "config/koneksi.php";
-	include "config/fungsi.php";
-	$alamat = "?mod=karyawan";
-	$aksi = $_GET[aksi];
+<?php
+    include 'config/koneksi.php';
+    include 'config/fungsi.php';
+    $alamat = '?mod=karyawan';
+    $aksi = $_GET[aksi];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,16 +21,14 @@ function harusangka(jumlah){
 }
 </script>
 <body>
-<?
-if (empty($aksi))
-{
-/*   $q = mysql_query("select * from mst_karyawan a,mst_jabatan b,mst_jamkerja c 
-   where a.kode_jab = b.kode_jab and a.kode_ship = c.kode_ship order by a.nip");
-*/
+<?php
+if (empty($aksi)) {
+    /*   $q = mysql_query("select * from mst_karyawan a,mst_jabatan b,mst_jamkerja c
+       where a.kode_jab = b.kode_jab and a.kode_ship = c.kode_ship order by a.nip");
+    */
 
-$q = mysql_query("select * from mst_karyawan a,mst_jabatan b 
-   where a.kode_jab = b.kode_jab and a.nip not in (select nip from mutasi_karyawan) order by a.nip")or die(mysql_error());
-?>
+    $q = mysql_query('select * from mst_karyawan a,mst_jabatan b 
+   where a.kode_jab = b.kode_jab and a.nip not in (select nip from mutasi_karyawan) order by a.nip') or exit(mysql_error()); ?>
 <table width="700" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td><a href="ckaryawan.php" class="versicetak" target="_blank">Versi Cetak</a> </td>
@@ -45,26 +43,26 @@ $q = mysql_query("select * from mst_karyawan a,mst_jabatan b
             <td width="38%" class="tabelheader">Nama</td>
             <td width="24%" class="tabelheader">Jabatan</td>
             <td width="6%" class="tabelheader">&nbsp;</td>
-             <?php if($_SESSION[bagian]!="karyawan"){?>
+             <?php if ($_SESSION[bagian] != 'karyawan') {?>
             <td width="6%" class="tabelheader"><a href="?mod=karyawan&aksi=tambah" title="Tambah Data Baru"><img src="images/b_insrow.png" width="16" height="16" border="0" /></a></td>
             <?php } ?>
           </tr>
-<?
-   while ($t = mysql_fetch_array($q))
-   {
-?>
+<?php
+   while ($t = mysql_fetch_array($q)) {
+       ?>
       <tr class="tabelsorot">
-        <td class="tabelisi"><a href="?mod=karyawan&aksi=view&id=<?=$t[nip]?>" title="View Detail"><?  echo $t[nip]; ?></a></td>
-        <td class="tabelisi"><?  echo $t[nama_lengkap]; ?></td>
-        <td class="tabelisi"><?  echo $t[nama_jabatan]; ?></td>
-         <?php if($_SESSION[bagian]!="karyawan"){?>
+        <td class="tabelisi"><a href="?mod=karyawan&aksi=view&id=<?=$t[nip]?>" title="View Detail"><?php  echo $t[nip]; ?></a></td>
+        <td class="tabelisi"><?php  echo $t[nama_lengkap]; ?></td>
+        <td class="tabelisi"><?php  echo $t[nama_jabatan]; ?></td>
+         <?php if ($_SESSION[bagian] != 'karyawan') {?>
         <td class="tabelisi" align="center">
-		<? echo "<a href='$alamat&aksi=ubah&id=$t[nip]' title='Ubah'>"; ?><img src="images/b_edit.png" width="16" height="16" border="0" /></a></td>
+		<?php echo "<a href='$alamat&aksi=ubah&id=$t[nip]' title='Ubah'>"; ?><img src="images/b_edit.png" width="16" height="16" border="0" /></a></td>
         <td class="tabelisi" align="center">
-		<? echo "<a href='$alamat&aksi=hapus&id=$t[nip]' title='Hapus'>"; ?><img src="images/b_drop.png" width="16" height="16" border="0" /></a></td>
+		<?php echo "<a href='$alamat&aksi=hapus&id=$t[nip]' title='Hapus'>"; ?><img src="images/b_drop.png" width="16" height="16" border="0" /></a></td>
         <?php } ?>
       </tr>
-<? } ?>
+<?php
+   } ?>
       <tr>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -76,15 +74,12 @@ $q = mysql_query("select * from mst_karyawan a,mst_jabatan b
   </tr>
 </table>
 <p>&nbsp;</p>
-<?
-} else
-if ($aksi == 'tambah')
-{
-    $qjabatan = mysql_query("select * from mst_jabatan order by kode_jab");
-	$qjamkerja = mysql_query("select * from mst_golongan");
-	
-	$tahunsekarang = date("Y");
-?>
+<?php
+} elseif ($aksi == 'tambah') {
+       $qjabatan = mysql_query('select * from mst_jabatan order by kode_jab');
+       $qjamkerja = mysql_query('select * from mst_golongan');
+
+       $tahunsekarang = date('Y'); ?>
 <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td class="bgform"><form id="karyawan" name="karyawan" method="post" enctype="multipart/form-data" action="proseskaryawan.php?aksi=tambah">
@@ -97,7 +92,7 @@ if ($aksi == 'tambah')
           <td width="66%">&nbsp;</td>
         </tr>
         <tr>
-          <td colspan="2" class="error"><? echo $_GET[err]; ?></td>
+          <td colspan="2" class="error"><?php echo $_GET[err]; ?></td>
           </tr>
        <!-- <tr>
           <td class="labelform">Nip</td>
@@ -143,26 +138,22 @@ if ($aksi == 'tambah')
           <td class="labelform">Tanggal Lahir </td>
           <td><label>
             <select name="tanggal" size="1">
-              <? for ($tgl = 1; $tgl<=31; $tgl++)
-			     {
-				   echo "<option value=$tgl>$tgl</option>";
-				  }
-			  ?>
+              <?php for ($tgl = 1; $tgl <= 31; $tgl++) {
+           echo "<option value=$tgl>$tgl</option>";
+       } ?>
             </select>
           </label>
             <label>
             <select name="bulan" size="1">
-			<?
-			  for ($bln = 1; $bln<=12; $bln++)
-			  {
-			     $bulan = ambilbulan($bln);
-                 echo "<option value=$bln>$bulan</option>";
-			  } 
-			 ?>
+			<?php
+              for ($bln = 1; $bln <= 12; $bln++) {
+                  $bulan = ambilbulan($bln);
+                  echo "<option value=$bln>$bulan</option>";
+              } ?>
             </select>
             </label>
             <label>
-            <input name="tahun" type="text" id="tahun" size="10" <? echo "value='$tahunsekarang'"; ?>   onkeypress="return harusangka(event)" maxlength="4"/>
+            <input name="tahun" type="text" id="tahun" size="10" <?php echo "value='$tahunsekarang'"; ?>   onkeypress="return harusangka(event)" maxlength="4"/>
             </label></td>
         </tr>
 		<tr>
@@ -225,12 +216,10 @@ if ($aksi == 'tambah')
           <td class="labelform">Jabatan</td>
           <td><label>
             <select name="kode_jab" size="1" id="kode_jab">
-			<?
-			  while ($tjab = mysql_fetch_array($qjabatan))
-			  {
-			     echo "<option value=$tjab[kode_jab]>$tjab[nama_jabatan]</option>";
-			  }
-			?>
+			<?php
+              while ($tjab = mysql_fetch_array($qjabatan)) {
+                  echo "<option value=$tjab[kode_jab]>$tjab[nama_jabatan]</option>";
+              } ?>
             </select>
           </label></td>
         </tr>
@@ -238,12 +227,10 @@ if ($aksi == 'tambah')
           <td class="labelform">Golongan</td>
           <td><label>
             <select name="golongan" size="1" id="golongan">
-			 <? 
-			  while ($tship = mysql_fetch_array($qjamkerja))
-			  {
-			     echo "<option value=$tship[id_golongan]>$tship[nama_golongan]</option>";
-			  }
-			 ?>
+			 <?php
+              while ($tship = mysql_fetch_array($qjamkerja)) {
+                  echo "<option value=$tship[id_golongan]>$tship[nama_golongan]</option>";
+              } ?>
             </select>
           </label></td>
         </tr>
@@ -264,7 +251,7 @@ if ($aksi == 'tambah')
             <input type="submit" name="Submit" value="Simpan" />
           </label>
             <label>
-            <input type="button" name="Submit2" value="Batal" onclick="location.href='<? echo $alamat; ?>'" />
+            <input type="button" name="Submit2" value="Batal" onclick="location.href='<?php echo $alamat; ?>'" />
             </label></td>
           </tr>
       </table>
@@ -274,21 +261,17 @@ if ($aksi == 'tambah')
 </table>
 
 <p>&nbsp;</p>
-<?
-} else
-if ($aksi == 'ubah')
-{
-    $id = $_GET[id];
-    $qjabatan = mysql_query("select * from mst_jabatan order by kode_jab");
-	$qjamkerja = mysql_query("select * from mst_golongan");
-	$qkaryawan = mysql_query("select * from mst_karyawan a,mst_jabatan c 
+<?php
+   } elseif ($aksi == 'ubah') {
+       $id = $_GET[id];
+       $qjabatan = mysql_query('select * from mst_jabatan order by kode_jab');
+       $qjamkerja = mysql_query('select * from mst_golongan');
+       $qkaryawan = mysql_query("select * from mst_karyawan a,mst_jabatan c 
 	where a.kode_jab = c.kode_jab and a.nip = '$id'");
-	$t = mysql_fetch_array($qkaryawan);
-	$Ftgl = ambil_tanggal($t[tanggal_lahir]);
-	$Fbln = ambil_bulan($t[tanggal_lahir]);
-	$Fthn = ambil_tahun($t[tanggal_lahir]);
-	
-?>
+       $t = mysql_fetch_array($qkaryawan);
+       $Ftgl = ambil_tanggal($t[tanggal_lahir]);
+       $Fbln = ambil_bulan($t[tanggal_lahir]);
+       $Fthn = ambil_tahun($t[tanggal_lahir]); ?>
 <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td class="bgform"><form id="karyawan" name="karyawan" method="post" enctype="multipart/form-data" action="proseskaryawan.php?aksi=ubah">
@@ -303,13 +286,13 @@ if ($aksi == 'ubah')
         <tr>
           <td class="labelform">Nomor Induk Karyawan</td>
           <td><label>
-            <input name="nip" type="text" id="nip" size="20" <? echo "value='$t[nip]'"; ?> readonly="" />
+            <input name="nip" type="text" id="nip" size="20" <?php echo "value='$t[nip]'"; ?> readonly="" />
           </label></td>
         </tr>
         <tr>
           <td class="labelform">Nama Karyawan </td>
           <td><label>
-            <input name="nama_lengkap" type="text" id="nama_lengkap" size="50" <? echo "value='$t[nama_lengkap]'"; ?>/>
+            <input name="nama_lengkap" type="text" id="nama_lengkap" size="50" <?php echo "value='$t[nama_lengkap]'"; ?>/>
           </label></td>
         </tr>
         <tr>
@@ -320,60 +303,54 @@ if ($aksi == 'ubah')
         </tr>
         <tr>
           <td class="labelform">Alamat KTP</td>
-          <td><input name="alamat_ktp" type="text" id="alamat_ktp" size="50" <? echo "value='$t[alamat_ktp]'"; ?>/></td>
+          <td><input name="alamat_ktp" type="text" id="alamat_ktp" size="50" <?php echo "value='$t[alamat_ktp]'"; ?>/></td>
         </tr>
         <tr>
           <td class="labelform">Alamat Domisili</td>
-          <td><input name="alamat_domisili" type="text" id="alamat_domisili" size="50"<? echo "value='$t[alamat_domisili]'"; ?> /></td>
+          <td><input name="alamat_domisili" type="text" id="alamat_domisili" size="50"<?php echo "value='$t[alamat_domisili]'"; ?> /></td>
         </tr>
         <tr>
           <td class="labelform">Email</td>
-          <td><input name="alamat_email" type="text" id="alamat_email" size="50" <? echo "value='$t[alamat_email]'"; ?>/></td>
+          <td><input name="alamat_email" type="text" id="alamat_email" size="50" <?php echo "value='$t[alamat_email]'"; ?>/></td>
         </tr>
         <tr>
           <td class="labelform">Telepon / HP</td>
-          <td><input name="telp_hp" type="text" id="telp_hp" size="50" <? echo "value='$t[telp_hp]'"; ?>  onkeypress="return harusangka(event)" /></td>
+          <td><input name="telp_hp" type="text" id="telp_hp" size="50" <?php echo "value='$t[telp_hp]'"; ?>  onkeypress="return harusangka(event)" /></td>
         </tr>
 
         <tr>
           <td class="labelform">Tempat Lahir </td>
-          <td><input name="tempat_lahir" type="text" id="tempat_lahir" size="50" <? echo "value='$t[tempat_lahir]'"; ?> /></td>
+          <td><input name="tempat_lahir" type="text" id="tempat_lahir" size="50" <?php echo "value='$t[tempat_lahir]'"; ?> /></td>
         </tr>
         <tr>
           <td class="labelform">Tanggal Lahir </td>
           <td><label>
             <select name="tanggal" size="1">
-              <? 
-				 for ($tgl = 1; $tgl<=31; $tgl++)
-				   if ($tgl == $Ftgl)
-			       {
-				       echo "<option value=$tgl selected='selected'>$tgl</option>";
-				   } else
-				   {
-				       echo "<option value=$tgl>$tgl</option>";
-				   }
-			  ?>
+              <?php
+                 for ($tgl = 1; $tgl <= 31; $tgl++) {
+                     if ($tgl == $Ftgl) {
+                         echo "<option value=$tgl selected='selected'>$tgl</option>";
+                     } else {
+                         echo "<option value=$tgl>$tgl</option>";
+                     }
+                 } ?>
             </select>
           </label>
             <label>
             <select name="bulan" size="1">
-			<?
-			  for ($bln = 1; $bln<=12; $bln++)
-			  {			     
-				 $bulan = ambilbulan($bln);
-                 if ($bln == $Fbln)
-				 {
-				    echo "<option value=$bln selected>$bulan</option>";
-				 } else
-				 {
-				    echo "<option value=$bln>$bulan</option>";
-				 }
-			  } 
-			 ?>
+			<?php
+              for ($bln = 1; $bln <= 12; $bln++) {
+                  $bulan = ambilbulan($bln);
+                  if ($bln == $Fbln) {
+                      echo "<option value=$bln selected>$bulan</option>";
+                  } else {
+                      echo "<option value=$bln>$bulan</option>";
+                  }
+              } ?>
             </select>
             </label>
             <label>
-            <input name="tahun" type="text" id="tahun" size="10" <? echo "value='$Fthn'"; ?>  onkeypress="return harusangka(event)" maxlength="4"/>
+            <input name="tahun" type="text" id="tahun" size="10" <?php echo "value='$Fthn'"; ?>  onkeypress="return harusangka(event)" maxlength="4"/>
             </label></td>
         </tr>
 		<tr>
@@ -429,24 +406,20 @@ if ($aksi == 'ubah')
         </tr>
 <tr>
           <td class="labelform">Jumlah Keluarga </td>
-          <td><input name="jumlah" type="text" id="jumlah" size="50" <? echo "value='$t[jumlah_keluarga]'"; ?> /></td>
+          <td><input name="jumlah" type="text" id="jumlah" size="50" <?php echo "value='$t[jumlah_keluarga]'"; ?> /></td>
         </tr>
         <tr>
           <td class="labelform">Jabatan</td>
           <td><label>
             <select name="kode_jab" size="1" id="kode_jab">
-			<?
-			  while ($tjab = mysql_fetch_array($qjabatan))
-			  {
-			     if ($tjab[kode_jab] == $t[kode_jab])
-				 {
-			        echo "<option value=$tjab[kode_jab] selected>$tjab[nama_jabatan]</option>";
-				 } else
-				 {
-			        echo "<option value=$tjab[kode_jab]>$tjab[nama_jabatan]</option>";
-				 }
-			  }
-			?>
+			<?php
+              while ($tjab = mysql_fetch_array($qjabatan)) {
+                  if ($tjab[kode_jab] == $t[kode_jab]) {
+                      echo "<option value=$tjab[kode_jab] selected>$tjab[nama_jabatan]</option>";
+                  } else {
+                      echo "<option value=$tjab[kode_jab]>$tjab[nama_jabatan]</option>";
+                  }
+              } ?>
             </select>
           </label></td>
         </tr>
@@ -454,17 +427,14 @@ if ($aksi == 'ubah')
           <td class="labelform">Golongan</td>
           <td><label>
             <select name="golongan" size="1" id="golongan">
-			 <? 
-			  while ($tship = mysql_fetch_array($qjamkerja))
-			  {
-				  if ($tship[id_golongan] == $t[id_golongan])
-				 {
-			     echo "<option value=$tship[id_golongan] selected>$tship[nama_golongan]</option>";
-				 }else{
-				echo "<option value=$tship[id_golongan]>$tship[nama_golongan]</option>";		 
-					 }
-			  }
-			 ?>
+			 <?php
+              while ($tship = mysql_fetch_array($qjamkerja)) {
+                  if ($tship[id_golongan] == $t[id_golongan]) {
+                      echo "<option value=$tship[id_golongan] selected>$tship[nama_golongan]</option>";
+                  } else {
+                      echo "<option value=$tship[id_golongan]>$tship[nama_golongan]</option>";
+                  }
+              } ?>
             </select>
           </label></td>
         </tr>
@@ -485,7 +455,7 @@ if ($aksi == 'ubah')
             <input type="submit" name="Submit" value="Simpan" />
           </label>
             <label>
-            <input type="button" name="Submit2" value="Batal" onclick="location.href='<? echo $alamat; ?>'" />
+            <input type="button" name="Submit2" value="Batal" onclick="location.href='<?php echo $alamat; ?>'" />
             </label></td>
           </tr>
       </table>
@@ -494,21 +464,17 @@ if ($aksi == 'ubah')
   </tr>
 </table>
 <p>&nbsp;</p>
-<?
-} else
-if ($aksi == 'view')
-{
-    $id = $_GET[id];
-    $qjabatan = mysql_query("select * from mst_jabatan order by kode_jab");
-	//$qjamkerja = mysql_query("select * from mst_jamkerja");
-	$qkaryawan = mysql_query("select * from mst_karyawan a,mst_jabatan c 
+<?php
+   } elseif ($aksi == 'view') {
+       $id = $_GET[id];
+       $qjabatan = mysql_query('select * from mst_jabatan order by kode_jab');
+       //$qjamkerja = mysql_query("select * from mst_jamkerja");
+       $qkaryawan = mysql_query("select * from mst_karyawan a,mst_jabatan c 
 	where a.kode_jab = c.kode_jab and a.nip = '$id'");
-	$t = mysql_fetch_array($qkaryawan);
-	$Ftgl = ambil_tanggal($t[tanggal_lahir]);
-	$Fbln = ambil_bulan($t[tanggal_lahir]);
-	$Fthn = ambil_tahun($t[tanggal_lahir]);
-	
-?>
+       $t = mysql_fetch_array($qkaryawan);
+       $Ftgl = ambil_tanggal($t[tanggal_lahir]);
+       $Fbln = ambil_bulan($t[tanggal_lahir]);
+       $Fthn = ambil_tahun($t[tanggal_lahir]); ?>
 <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td class="bgform"><form id="karyawan" name="karyawan" method="post" enctype="multipart/form-data" action="proseskaryawan.php?aksi=ubah">
@@ -523,35 +489,35 @@ if ($aksi == 'view')
         <td width="21%" rowspan="14" valign="top"><img width="100" height="100" src="images/<?php echo $t['photo']?>" /></td>
           <td width="28%" class="labelform">NIP</td>
           <td width="51%"><label>
-            <? echo $t[nip]; ?>
+            <?php echo $t[nip]; ?>
           </label></td>
         </tr>
         <tr>
           <td class="labelform">Nama Karyawan </td>
           <td><label>
-            <? echo $t[nama_lengkap]; ?>
+            <?php echo $t[nama_lengkap]; ?>
           </label></td>
         </tr>
         <tr>
           <td class="labelform">Alamat KTP</td>
-          <td><? echo $t[alamat_ktp]?></td>
+          <td><?php echo $t[alamat_ktp]?></td>
         </tr>
         <tr>
           <td class="labelform">Alamat Domisili</td>
-          <td><? echo $t[alamat_domisili]; ?></td>
+          <td><?php echo $t[alamat_domisili]; ?></td>
         </tr>
         <tr>
           <td class="labelform">Email</td>
-          <td><? echo $t[alamat_email] ?></td>
+          <td><?php echo $t[alamat_email] ?></td>
         </tr>
         <tr>
           <td class="labelform">Telepon / HP</td>
-          <td><? echo $t[telp_hp] ?> </td>
+          <td><?php echo $t[telp_hp] ?> </td>
         </tr>
 
         <tr>
           <td class="labelform">Tempat Lahir </td>
-          <td><? echo $t[tempat_lahir]?> </td>
+          <td><?php echo $t[tempat_lahir]?> </td>
         </tr>
         <tr>
           <td class="labelform">Tanggal Lahir </td>
@@ -598,9 +564,9 @@ if ($aksi == 'view')
           <td class="labelform">Jabatan</td>
           <td><label>
             
-			<?
-			  echo $tjab[nama_jabatan]
-			?>
+			<?php
+              echo $tjab[nama_jabatan]
+            ?>
             
           </label></td>
         </tr>-->
@@ -615,15 +581,12 @@ if ($aksi == 'view')
 </table>
 
 <p>&nbsp;</p>
-<?
-} else
-if ($aksi == 'hapus')
-{
-    $id = $_GET[id];
-	$qkaryawan = mysql_query("select * from mst_karyawan a,mst_jabatan c 
-	where a.kode_jab = c.kode_jab and a.nip = '$id'") or die ("Salah");	
-	$ta = mysql_fetch_array($qkaryawan);	
-?>
+<?php
+   } elseif ($aksi == 'hapus') {
+       $id = $_GET[id];
+       $qkaryawan = mysql_query("select * from mst_karyawan a,mst_jabatan c 
+	where a.kode_jab = c.kode_jab and a.nip = '$id'") or exit('Salah');
+       $ta = mysql_fetch_array($qkaryawan); ?>
 <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td class="bgform"><form id="karyawan" name="karyawan" method="post" action="proseskaryawan.php?aksi=hapus">
@@ -638,19 +601,19 @@ if ($aksi == 'hapus')
         <tr>
           <td class="labelform">Nomor Induk Karyawan</td>
           <td><label>
-            <input type="text" name="nip" readonly <? echo "value='$ta[nip]'"; ?>  />
+            <input type="text" name="nip" readonly <?php echo "value='$ta[nip]'"; ?>  />
           </label></td>
         </tr>
         <tr>
           <td class="labelform">Nama Karyawan </td>
           <td><label>
-            <input name="nama" type="text" size="50" readonly <? echo "value='$ta[nama_lengkap]'"; ?>  />
+            <input name="nama" type="text" size="50" readonly <?php echo "value='$ta[nama_lengkap]'"; ?>  />
           </label></td>
         </tr>
         <tr>
           <td class="labelform">Jabatan</td>
           <td><label>
-            <input type="text" name="jabatan" readonly <? echo "value='$ta[nama_jabatan]'"; ?>  />
+            <input type="text" name="jabatan" readonly <?php echo "value='$ta[nama_jabatan]'"; ?>  />
           </label></td>
         </tr>
         <tr>
@@ -662,7 +625,7 @@ if ($aksi == 'hapus')
             <input type="submit" name="Submit" value="Hapus" />
           </label>
             <label>
-            <input type="button" name="Submit2" value="Batal" onclick="location.href='<? echo $alamat; ?>'" />
+            <input type="button" name="Submit2" value="Batal" onclick="location.href='<?php echo $alamat; ?>'" />
             </label></td>
           </tr>
       </table>
@@ -670,7 +633,8 @@ if ($aksi == 'hapus')
     </td>
   </tr>
 </table>
-<? }
+<?php
+   }
  ?>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
-	include "config/koneksi.php";
-	include "config/fungsi.php";
-	//print_r($_GET);
+    include 'config/koneksi.php';
+    include 'config/fungsi.php';
+    //print_r($_GET);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,9 +11,9 @@
 </head>
 
 <body>
-<?php 
-	 $q = mysql_query("select * from mst_karyawan a,mst_jabatan b , mutasi_karyawan c, mst_golongan d
-   where a.kode_jab = b.kode_jab and a.nip = c.nip and c.id='$_GET[id]' and d.id_golongan = a.id_golongan")or die(mysql_error());	 
+<?php
+     $q = mysql_query("select * from mst_karyawan a,mst_jabatan b , mutasi_karyawan c, mst_golongan d
+   where a.kode_jab = b.kode_jab and a.nip = c.nip and c.id='$_GET[id]' and d.id_golongan = a.id_golongan") or exit(mysql_error());
    $t = mysql_fetch_array($q);
 ?>
 <table width="70%" height="815" border="0" align="center" style="border:thick; border-color:#000000">
@@ -27,7 +27,7 @@
     	<td colspan="3"><hr size="2px" /></td>
     </tr>
 	<tr>
-		<td colspan="3" align="right"><em><?php echo date('d') . " " . date('F')." ". date(Y)?></em></td>
+		<td colspan="3" align="right"><em><?php echo date('d').' '.date('F').' '.date(Y)?></em></td>
 	</tr>
     <tr>
     	<td>
@@ -35,7 +35,7 @@
     <tr>
         <td width="101" height="25">N o m o r</td>
         <td width="13">:</td>
-        <td width="158"><?php echo date('Y/m/d/').$_GET['no'];?></td>
+        <td width="158"><?php echo date('Y/m/d/').$_GET['no']; ?></td>
     </tr>
 	
 	<tr>

@@ -1,12 +1,12 @@
-<?
-	include "config/koneksi.php";
-	include "config/fungsi.php";
-	$alamat = "?mod=ijin";
-	$aksi = $_GET[aksi];
-	   $q = mysql_query("select a.*,b.nama_lengkap from t_ijin a,mst_karyawan b 
-   where a.nip = b.nip order by a.tanggal desc");
-	$tgls = date('Y-m-d');
-	$tanggalsekarang = tgl_indonesia($tgls);
+<?php
+    include 'config/koneksi.php';
+    include 'config/fungsi.php';
+    $alamat = '?mod=ijin';
+    $aksi = $_GET[aksi];
+       $q = mysql_query('select a.*,b.nama_lengkap from t_ijin a,mst_karyawan b 
+   where a.nip = b.nip order by a.tanggal desc');
+    $tgls = date('Y-m-d');
+    $tanggalsekarang = tgl_indonesia($tgls);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -25,23 +25,22 @@
         <td width="20%" class="tabelheader">Tanggal</td>
         <td width="31%" class="tabelheader">Keterangan</td>
       </tr>
-<?
-   while ($t = mysql_fetch_array($q))
-   {
-      $tanggal = tgl_indonesia($t[tanggal]);
-?>
+<?php
+   while ($t = mysql_fetch_array($q)) {
+       $tanggal = tgl_indonesia($t[tanggal]); ?>
       <tr class="tabelsorot">
-        <td class="tabelisi"><?  echo $t[nip]; ?></td>
-        <td class="tabelisi"><?  echo $t[nama_lengkap]; ?></td>
-        <td class="tabelisi"><?  echo $tanggal; ?></td>
-        <td class="tabelisi"><?  echo $t[jenis_ijin]; ?></td>
+        <td class="tabelisi"><?php  echo $t[nip]; ?></td>
+        <td class="tabelisi"><?php  echo $t[nama_lengkap]; ?></td>
+        <td class="tabelisi"><?php  echo $tanggal; ?></td>
+        <td class="tabelisi"><?php  echo $t[jenis_ijin]; ?></td>
       </tr>
-<? } ?>
+<?php
+   } ?>
 <tr><td>&nbsp;</td></tr>
        <tr>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td colspan="2" align="center">Tanggal, <? echo $tanggalsekarang;  ?>
+        <td colspan="2" align="center">Tanggal, <?php echo $tanggalsekarang; ?>
         <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         ( Ka.Bag SDM )</td>
       </tr>

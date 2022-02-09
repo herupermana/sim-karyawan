@@ -1,14 +1,13 @@
-<?
-	$alamat = "?mod=cuti&cuti=cuti_tahunan";
-	$aksi = $_GET[aksi];
-	$tahunsekarang = date("Y");
-	$mod = $_GET[cuti];
-   switch ($mod)
-   {
-      default 				: $namafile = "cuti_tahunan.php"; $judul = "Data Pegawai"; break;
-      case "cuti_tahunan" 	: $namafile = "cuti_tahunan.php"; $judul = "Data Karyawan"; break;
-	  case "cuti_hamil" 	: $namafile = "cuti_hamil.php"; $judul = "Data Karyawan"; break;
-	}
+<?php
+    $alamat = '?mod=cuti&cuti=cuti_tahunan';
+    $aksi = $_GET[aksi];
+    $tahunsekarang = date('Y');
+    $mod = $_GET[cuti];
+   switch ($mod) {
+      default: $namafile = 'cuti_tahunan.php'; $judul = 'Data Pegawai'; break;
+      case 'cuti_tahunan': $namafile = 'cuti_tahunan.php'; $judul = 'Data Karyawan'; break;
+      case 'cuti_hamil': $namafile = 'cuti_hamil.php'; $judul = 'Data Karyawan'; break;
+    }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,7 +25,7 @@
   </tr>
   <tr>
   	<td colspan="2">
-		<? include $namafile;  ?>
+		<?php include $namafile; ?>
 	</td>
   </tr>
 </table>

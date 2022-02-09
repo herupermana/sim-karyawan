@@ -1,7 +1,7 @@
 <?php
-	include "config/koneksi.php";
-	include "config/fungsi.php";
-	//print_r($_GET);
+    include 'config/koneksi.php';
+    include 'config/fungsi.php';
+    //print_r($_GET);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,12 +11,12 @@
 </head>
 
 <body>
-<?php 
-	 $q = mysql_query("select a.*, b.telp_hp,b.nama_lengkap, c.nama_jabatan from t_ijin a,mst_karyawan b, mst_jabatan c 
-   where a.nip = b.nip and a.id = '$_GET[id]' and c.kode_jab = b.kode_jab ");	 
-   
+<?php
+     $q = mysql_query("select a.*, b.telp_hp,b.nama_lengkap, c.nama_jabatan from t_ijin a,mst_karyawan b, mst_jabatan c 
+   where a.nip = b.nip and a.id = '$_GET[id]' and c.kode_jab = b.kode_jab ");
+
    $t = mysql_fetch_array($q);
-   
+
 ?>
 <table width="64%" height="303" border="0" align="center" style="border:double; border-color:#000000">
     <tr>
@@ -31,7 +31,7 @@
     <tr>
         <td width="256" height="25">NO SURAT</td>
         <td width="12">:</td>
-        <td width="410"><?php echo date('Y/m/d/').$_GET['no'];?></td>
+        <td width="410"><?php echo date('Y/m/d/').$_GET['no']; ?></td>
     </tr>
     <tr>
         <td width="256" height="25">NAMA</td>
