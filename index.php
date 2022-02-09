@@ -1,31 +1,29 @@
-<?
+<?php
    session_start();
    date_default_timezone_set('Asia/Jakarta');
-   if (empty($_SESSION[diahuser]) and (empty($_SESSION[diahpassword])))
-   {
-      header("location:login.php");
+   if (empty($_SESSION[diahuser]) and (empty($_SESSION[diahpassword]))) {
+       header('location:login.php');
    }
-   $tanggal = date("D, d M y");
+   $tanggal = date('D, d M y');
    $j = date('H');
-   $jj = $j-1;
-   $jam = $jj.":".date("i:s");
+   $jj = $j - 1;
+   $jam = $jj.':'.date('i:s');
    $mod = $_GET[mod];
-   switch ($mod)
-   {
-      default 			: $namafile = "karyawan.php"; $judul = "Data Pegawai"; break;
-      case "karyawan" 	: $namafile = "karyawan.php"; $judul = "Data Karyawan"; break;
-      case "jabatan"	: $namafile = "jabatan.php"; $judul = "Jabatan Karyawan"; break;	  
-      case "cuti"		: $namafile = "cuti.php"; $judul = "Data Cuti Karyawan"; break;	  
-	  case "user"		: $namafile = "user.php"; $judul = "Data User"; break;
-	  case "ijin"		: $namafile = "ijin_harian.php"; $judul = "Ijin Karyawan"; break;
-	  case "gaji"		: $namafile = "gaji.php"; $judul = "laporan Gaji"; break;
-	  case "lembur"		: $namafile = "lembur.php"; $judul = "Lembur"; break;
-	  case "ship"		: $namafile = "ship.php";	$judul = "Ship / Jam Kerja"; break;
-	  case "mutasi"		: $namafile = "mutasi.php";	$judul = "Mutasi"; break;
-	  case "pangkat"		: $namafile = "pangkat.php";	$judul = "Kenaikan Pangkat"; break;
-	  case "laporan"	: $namafile = "laporan.php"; $judul = "Laporan Absensi"; break;
-	  case "golongan"	: $namafile = "golongan.php"; $judul = "Data Golongan"; break;
-	  case "cetak_peringatan"	: $namafile = "catatan_peringatan.php"; $judul = "Catatan Peringatan"; break;
+   switch ($mod) {
+      default: $namafile = 'karyawan.php'; $judul = 'Data Pegawai'; break;
+      case 'karyawan': $namafile = 'karyawan.php'; $judul = 'Data Karyawan'; break;
+      case 'jabatan': $namafile = 'jabatan.php'; $judul = 'Jabatan Karyawan'; break;
+      case 'cuti': $namafile = 'cuti.php'; $judul = 'Data Cuti Karyawan'; break;
+      case 'user': $namafile = 'user.php'; $judul = 'Data User'; break;
+      case 'ijin': $namafile = 'ijin_harian.php'; $judul = 'Ijin Karyawan'; break;
+      case 'gaji': $namafile = 'gaji.php'; $judul = 'laporan Gaji'; break;
+      case 'lembur': $namafile = 'lembur.php'; $judul = 'Lembur'; break;
+      case 'ship': $namafile = 'ship.php'; $judul = 'Ship / Jam Kerja'; break;
+      case 'mutasi': $namafile = 'mutasi.php'; $judul = 'Mutasi'; break;
+      case 'pangkat': $namafile = 'pangkat.php'; $judul = 'Kenaikan Pangkat'; break;
+      case 'laporan': $namafile = 'laporan.php'; $judul = 'Laporan Absensi'; break;
+      case 'golongan': $namafile = 'golongan.php'; $judul = 'Data Golongan'; break;
+      case 'cetak_peringatan': $namafile = 'catatan_peringatan.php'; $judul = 'Catatan Peringatan'; break;
    }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -138,9 +136,9 @@ body {
       </tr>
       <tr>
         <td height="30">&nbsp;</td>
-        <td><? echo "$tanggal || $jam"; ?> </td>
+        <td><?php echo "$tanggal || $jam"; ?> </td>
         <td>&nbsp;</td>
-        <td align="right">User ID : <? echo $_SESSION[diahnama]; ?></td>
+        <td align="right">User ID : <?php echo $_SESSION[diahnama]; ?></td>
       </tr>
     </table></td>
   </tr>
@@ -153,7 +151,7 @@ body {
           </tr>
           <tr>
             <td valign="top" class="bgtengah"><table width="92%" border="0" align="center" cellpadding="0" cellspacing="0">
-            <?php if($_SESSION[bagian]=="karyawan"){?>
+            <?php if ($_SESSION[bagian] == 'karyawan') {?>
             
               <tr>
                 <td><a href="?mod=karyawan" class="menu1" style="color:#00F">Data Karyawan </a> </td>
@@ -161,7 +159,7 @@ body {
                <tr>
                 <td><a href="?mod=laporan" class="menu1" style="color:#00F">Laporan Absensi</a> </td>
               </tr>
-            <?php }else{?>
+            <?php } else {?>
               <tr>
                 <td><a href="?mod=karyawan" class="menu1" style="color:#00F">Data Karyawan </a> </td>
               </tr>
@@ -214,10 +212,10 @@ body {
         </table></td>
         <td width="76%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td><div class="bgjudul"><? echo $judul; ?></div> </td>
+            <td><div class="bgjudul"><?php echo $judul; ?></div> </td>
           </tr>
           <tr>
-            <td><? include $namafile;  ?></td>
+            <td><?php include $namafile; ?></td>
           </tr>
           <tr>
             <td>&nbsp;</td>

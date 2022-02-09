@@ -1,11 +1,11 @@
-<?
-   include "config/koneksi.php";
-   include "config/fungsi.php";
+<?php
+   include 'config/koneksi.php';
+   include 'config/fungsi.php';
    $bulan = $_GET[bulan];
    $tahun = $_GET[tahun];
    $nip = $_GET[nip];
    $namabulan = get_bulan($bulan);
-   $jumhari = date("t",mktime(0,0,0,$bulan,1,$tahun));
+   $jumhari = date('t', mktime(0, 0, 0, $bulan, 1, $tahun));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,17 +20,18 @@
 <table class="bgform" width="500" border="0" align="center" cellspacing="0" cellpadding="0">
 
   <tr>
-    <td colspan="2" class="tabelheader">BULAN : <? echo $namabulan." ".$tahun; ?></td>
-	<?
-	  for ($tgl=1; $tgl<= $jumhari; $tgl++)
-	  //{
-	?>
+    <td colspan="2" class="tabelheader">BULAN : <?php echo $namabulan.' '.$tahun; ?></td>
+	<?php
+      for ($tgl = 1; $tgl <= $jumhari; $tgl++) {
+          //{;
+      }
+    ?>
     
-    <? //} ?>
+    <?php //}?>
 	
   </tr>
-  <?php 
-  $qkar = mysql_query("select mst_karyawan.* from mst_karyawan where nip='$nip'")or die(mysql_error());
+  <?php
+  $qkar = mysql_query("select mst_karyawan.* from mst_karyawan where nip='$nip'") or exit(mysql_error());
   $row_karyawan = mysql_fetch_array($qkar);
   ?>
   <tr class="tabelisi">
@@ -47,26 +48,26 @@
   <tr class="tabelisi">
     <td class="tabelsorot" width="252">GAJI POKOK</td>
         <td class="tabelsorot">:</td>
-    <td class="tabelsorot"><?php echo "Rp. " . number_format($row_karyawan['gajipokok'])?></td>
+    <td class="tabelsorot"><?php echo 'Rp. '.number_format($row_karyawan['gajipokok'])?></td>
 
   </tr>
-  <?php 
-  $ab = mysql_query("Select count(t_absensi.masuk) as jumlah_hadir from mst_karyawan left join t_absensi on t_absensi.nip=mst_karyawan.nip where MONTH(t_absensi.tanggal)='$bulan' AND YEAR(t_absensi.tanggal)='$tahun'  AND t_absensi.nip='$nip'")or die(mysql_error());
+  <?php
+  $ab = mysql_query("Select count(t_absensi.masuk) as jumlah_hadir from mst_karyawan left join t_absensi on t_absensi.nip=mst_karyawan.nip where MONTH(t_absensi.tanggal)='$bulan' AND YEAR(t_absensi.tanggal)='$tahun'  AND t_absensi.nip='$nip'") or exit(mysql_error());
   $jl = mysql_fetch_array($ab);
-  
-  $akumulasi = $row_karyawan['gajipokok'] - (22 - $jl[jumlah_hadir])*500;
+
+  $akumulasi = $row_karyawan['gajipokok'] - (22 - $jl[jumlah_hadir]) * 500;
   ?>
   <tr class="tabelisi">
     <td width="252" class="tabelsorot">POTONGAN</td>
         <td class="tabelsorot">:</td>
-    <td class="tabelsorot"><?php echo "Rp. " . number_format((22 - $jl['jumlah_hadir']) * 500)?></td>
+    <td class="tabelsorot"><?php echo 'Rp. '.number_format((22 - $jl['jumlah_hadir']) * 500)?></td>
 
   </tr>
 <tr><td>&nbsp;</td></tr>  
     <tr class="tabelisi">
     <td class="tabelsorot" width="252">GAJI TERIMA BULAN INI</td>
         <td class="tabelsorot">:</td>
-    <td class="tabelsorot"><?php echo "Rp. " . number_format($akumulasi)?></td>
+    <td class="tabelsorot"><?php echo 'Rp. '.number_format($akumulasi)?></td>
 
   </tr>
   <tr><td><hr /></td></tr>

@@ -1,8 +1,8 @@
-<?
-	include "config/koneksi.php";
-	include "config/fungsi.php";
-	$alamat = "?mod=user";
-	$aksi = $_GET[aksi];
+<?php
+    include 'config/koneksi.php';
+    include 'config/fungsi.php';
+    $alamat = '?mod=user';
+    $aksi = $_GET[aksi];
     $id = $_GET[id];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -14,12 +14,9 @@
 </head>
 
 <body>
-<?
-if (empty($aksi))
-{
-    $q = mysql_query("select * from mst_user order by nama_user");
-	
-?>
+<?php
+if (empty($aksi)) {
+    $q = mysql_query('select * from mst_user order by nama_user'); ?>
 <table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td class="bgform"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -28,24 +25,24 @@ if (empty($aksi))
         <td width="41%" class="tabelheader">Nama</td>
         <td width="6%" class="tabelheader">&nbsp;</td>
         <td width="6%" class="tabelheader">
-		<? echo "<a href='$alamat&aksi=tambah' title='Tambah Data Baru'>"; ?>
+		<?php echo "<a href='$alamat&aksi=tambah' title='Tambah Data Baru'>"; ?>
 		<img src="images/b_insrow.png" width="16" height="16" border="0" /></a></td>
       </tr>
-      <?
-	     while ($t = mysql_fetch_array($q))
-		 {
-	  ?>
+      <?php
+         while ($t = mysql_fetch_array($q)) {
+             ?>
       <tr class="tabelsorot">
-        <td class="tabelisi"><? echo $t[nama_user]; ?></td>
-        <td class="tabelisi"><? echo $t[nama]; ?></td>
+        <td class="tabelisi"><?php echo $t[nama_user]; ?></td>
+        <td class="tabelisi"><?php echo $t[nama]; ?></td>
         <td class="tabelisi" align="center">
-		<? echo "<a href='$alamat&aksi=ubah&id=$t[nama_user]' title='Ubah'>"; ?>
+		<?php echo "<a href='$alamat&aksi=ubah&id=$t[nama_user]' title='Ubah'>"; ?>
 		<img src="images/b_edit.png" width="16" height="16" border="0" /></a></td>
         <td class="tabelisi" align="center">
-		<? echo "<a href='$alamat&aksi=hapus&id=$t[nama_user]' title='Hapus'>"; ?>
+		<?php echo "<a href='$alamat&aksi=hapus&id=$t[nama_user]' title='Hapus'>"; ?>
 		<img src="images/b_drop.png" width="16" height="16" border="0" /></a></td>
       </tr>
-	  <? } ?>
+	  <?php
+         } ?>
       <tr>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -55,11 +52,9 @@ if (empty($aksi))
     </table></td>
   </tr>
 </table>
-<?
-} else
-if ($aksi == 'tambah')
-{
-?>
+<?php
+} elseif ($aksi == 'tambah') {
+             ?>
 <p>&nbsp;</p>
 
 <table width="350" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -111,7 +106,7 @@ if ($aksi == 'tambah')
             <input type="submit" name="Submit" value="Tambah" />
           </label>
             <label>
-            <input type="button" name="Submit2" value="Batal" onclick="location.href='<? echo $alamat; ?>'" />
+            <input type="button" name="Submit2" value="Batal" onclick="location.href='<?php echo $alamat; ?>'" />
             </label></td>
           </tr>
       </table>
@@ -120,13 +115,10 @@ if ($aksi == 'tambah')
   </tr>
 </table>
 
-<?
-} else
-if ($aksi == 'ubah')
-{
-	$qubah = mysql_query("select * from mst_user where nama_user = '$id'");
-	$tubah = mysql_fetch_array($qubah);
-?>
+<?php
+         } elseif ($aksi == 'ubah') {
+             $qubah = mysql_query("select * from mst_user where nama_user = '$id'");
+             $tubah = mysql_fetch_array($qubah); ?>
 <p>&nbsp;</p>
 
 <table width="350" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -143,19 +135,19 @@ if ($aksi == 'ubah')
         <tr>
           <td class="labelform">Nama User</td>
           <td><label>
-            <input name="nama_user" type="text" size="20" readonly <? echo "value='$tubah[nama_user]'"; ?> />
+            <input name="nama_user" type="text" size="20" readonly <?php echo "value='$tubah[nama_user]'"; ?> />
           </label></td>
         </tr>
         <tr>
           <td class="labelform">Kata Kunci</td>
           <td><label>
-            <input name="kata_kunci" type="password" size="20" <? echo "value='$tubah[kata_kunci]'"; ?>/>
+            <input name="kata_kunci" type="password" size="20" <?php echo "value='$tubah[kata_kunci]'"; ?>/>
           </label></td>
         </tr>
         <tr>
           <td class="labelform">Nama Lengkap</td>
           <td><label>
-            <input name="nama" type="text" size="30" readonly <? echo "value='$tubah[nama]'"; ?> />
+            <input name="nama" type="text" size="30" readonly <?php echo "value='$tubah[nama]'"; ?> />
           </label></td>
         </tr>
 
@@ -163,19 +155,15 @@ if ($aksi == 'ubah')
           <td class="labelform">Bagian</td>
           <td><label>
             <select name="bagian" size="1">
-				 <?
-				 	$bag = explode("/","Administrator/HRD"); 
-					foreach ($bag as $bagian)
-					{
-					   if ($bagian == $tubah[bagian])
-					   {
-				          echo "<option value='$bagian' selected>$bagian</option>"; 
-					   } else
-					   {
-					   	  echo "<option value='$bagian'>$bagian</option>"; 
-					   }
-					 }
-			     ?>
+				 <?php
+                    $bag = explode('/', 'Administrator/HRD');
+             foreach ($bag as $bagian) {
+                 if ($bagian == $tubah[bagian]) {
+                     echo "<option value='$bagian' selected>$bagian</option>";
+                 } else {
+                     echo "<option value='$bagian'>$bagian</option>";
+                 }
+             } ?>
 			</select>
           </label></td>
         </tr>
@@ -189,7 +177,7 @@ if ($aksi == 'ubah')
             <input type="submit" name="Submit" value="Simpan" />
           </label>
             <label>
-            <input type="button" name="Submit2" value="Batal" onclick="location.href='<? echo $alamat; ?>'" />
+            <input type="button" name="Submit2" value="Batal" onclick="location.href='<?php echo $alamat; ?>'" />
             </label></td>
           </tr>
       </table>
@@ -200,13 +188,10 @@ if ($aksi == 'ubah')
 
 
 <p>&nbsp;</p>
-<?
-} else
-if ($aksi == 'hapus')
-{
-	$qhapus = mysql_query("select * from mst_user where nama_user = '$id'");
-	$thapus = mysql_fetch_array($qhapus);
-?>
+<?php
+         } elseif ($aksi == 'hapus') {
+             $qhapus = mysql_query("select * from mst_user where nama_user = '$id'");
+             $thapus = mysql_fetch_array($qhapus); ?>
 <table width="350" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td class="bgform"><form id="formuser" name="formuser" method="post" action="prosesuser.php?aksi=hapus">
@@ -221,13 +206,13 @@ if ($aksi == 'hapus')
         <tr>
           <td class="labelform">Nama User</td>
           <td><label>
-            <input name="nama_user" type="text" size="10" readonly <? echo "value='$thapus[nama_user]'"; ?> />
+            <input name="nama_user" type="text" size="10" readonly <?php echo "value='$thapus[nama_user]'"; ?> />
           </label></td>
         </tr>
         <tr>
           <td class="labelform">Bagian</td>
           <td><label>
-            <input name="bagian" type="text" size="30" readonly <? echo "value='$thapus[bagian]'"; ?>/>
+            <input name="bagian" type="text" size="30" readonly <?php echo "value='$thapus[bagian]'"; ?>/>
           </label></td>
         </tr>
         <tr>
@@ -239,7 +224,7 @@ if ($aksi == 'hapus')
             <input type="submit" name="Submit" value="Hapus" />
           </label>
             <label>
-            <input type="button" name="Submit2" value="Batal" onclick="location.href='<? echo $alamat; ?>'" />
+            <input type="button" name="Submit2" value="Batal" onclick="location.href='<?php echo $alamat; ?>'" />
             </label></td>
           </tr>
       </table>
@@ -247,6 +232,7 @@ if ($aksi == 'hapus')
     </td>
   </tr>
 </table>
-<? } ?>
+<?php
+         } ?>
 </body>
 </html>
